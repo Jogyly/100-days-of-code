@@ -1,5 +1,3 @@
-# 100 Days Of Code - Log
-
 ### Day 0: Jan 08, 2019 (Description)
 
 **About me**: Hi, my name is Max! I'm realy happy if smbdy read this :) Sry for my English I' not so good in English)

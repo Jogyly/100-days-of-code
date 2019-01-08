@@ -1,0 +1,113 @@
+.node {
+  color: red;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  min-width: 100px;
+  min-height: 25px;
+  border-radius: 5%;
+  font: Arial;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.commonNode:hover .but {
+  visibility: visible;
+}
+
+.commonNode .but {
+  position: absolute;
+  margin: -5px 39px;
+  border-radius: 50%;
+  visibility: hidden;
+}
+
+.node:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,1);
+  cursor: pointer;
+}
+
+.popup {
+  background-color: white;
+  width: 600px;
+  padding: 20px;
+  position: absolute;
+  margin-left: -320px;
+  left: 50%;
+  top: 10%;
+  border-radius: 3%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  font-family: Geneva, Arial, Helvetica, sans-serif;
+}
+
+.name {
+  font-size: 26px;
+  text-align: center;
+  width: 90%;
+  margin: 0 0 15px 20px;
+}
+
+.description {
+  text-align: justify;
+  padding: 10px;
+}
+
+.description_input {
+  text-align: justify;
+  padding: 10px;
+  height: 169px;
+  width: 523px;
+  margin-left: 20px;
+  font-size: 18px;
+}
+
+.cross {
+  color: gray;
+  width: 25px;
+  height: 25px;
+  font-size: 1.8em;
+  cursor: pointer;
+  position: absolute;
+  right: 7px;
+  top: 5px;
+}
+
+.edit {
+  color: gray;
+  width: 25px;
+  height: 25px;
+  font-size: 1.8em;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+}
+
+.cross:hover {
+  color: black;
+}
+
+.edit:hover {
+  color: black;
+}
+
+img {
+  width: 300px;
+}
+
+.img {
+  margin: 10px 20px 0 150px;
+}
+
+.actions {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.primary_button {
+  width: 100px;
+}
+
+.alternate_button {
+  width: 100px;
+}
