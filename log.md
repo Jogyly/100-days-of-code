@@ -35,3 +35,9 @@ If u click on node:
 
 And u can click on &Xi; for edit:
 [edit](img/Edit.png)
+
+### Day 1: Jan 09, 2019
+
+I know MobX so bad and can't understand why some changes save but other changes don't save -_-
+I reread documentation and read this article: https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140
+Hope this help me...
