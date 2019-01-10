@@ -41,3 +41,7 @@ And u can click on &Xi; for edit:
 I know MobX so bad and can't understand why some changes save but other changes don't save -_-
 I reread documentation and read this article: https://medium.com/dailyjs/mobx-react-best-practices-17e01cec4140
 Hope this help me...
+
+### Day 2: Jan 10, 2019
+
+I decided to refactor all my project and add normal babel and support decorations. I've made this but not all complete.
