@@ -10,7 +10,8 @@ class Node extends React.Component{
   }
 
   addCharacter = () => {
-    
+    console.log("parent");
+    console.dir(this.props.character);
   }
 
   changeShow = () => {

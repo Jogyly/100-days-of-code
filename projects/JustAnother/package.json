@@ -1,13 +1,11 @@
 {
-  "name": "my-appcreate-react-app",
-  "version": "0.1.0",
+  "name": "just_another",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "mobx": "^5.8.0",
-    "mobx-react": "^5.4.3",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2",
-    "react-scripts": "1.1.4"
+    "custom-react-scripts": "0.2.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -16,6 +14,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-preset-mobx": "^2.0.0"
+    "mobx": "^5.8.0",
+    "mobx-react": "^5.4.3"
   }
 }

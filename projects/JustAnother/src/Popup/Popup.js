@@ -26,9 +26,9 @@ class Popup extends React.Component{
   componentWillUnmount = () => {
     document.removeEventListener("click", this.handleClick);
     console.dir(this.state.oldCharacter);
-    this.setState({
+    /* this.setState({
       character: this.state.oldCharacter
-    });
+    }); */
     console.log("willRem");
     console.dir(this.state.character);
   }
