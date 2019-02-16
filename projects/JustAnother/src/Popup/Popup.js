@@ -1,42 +1,33 @@
 import React from 'react';
-import style from "./Popup.css"; 
-import { inject } from "mobx-react";
+import { inject, observer } from "mobx-react";
+import styles from "./styles.js";
 
+@inject("store")
+@observer
 class Popup extends React.Component{
   state = {
     character: this.props.character,
     id: this.props.character.id,
     name: this.props.character.name,
     description: this.props.character.description,
-    oldCharacter: null,
-    edit: false,
+    edit: this.props.edit || false,
   }
 
   componentDidMount = () => {
     document.addEventListener("click", this.handleClick);
-    const oldCharacter = new Object();
-    oldCharacter.id = this.state.id;
-    oldCharacter.name = this.state.name;
-    oldCharacter.description = this.state.description;
-    this.setState({
-      oldCharacter
-    });
+    document.body.style.overflow = "hidden";
+
   }
 
   componentWillUnmount = () => {
     document.removeEventListener("click", this.handleClick);
-    console.dir(this.state.oldCharacter);
-    /* this.setState({
-      character: this.state.oldCharacter
-    }); */
-    console.log("willRem");
-    console.dir(this.state.character);
+    document.body.style.overflow = "";
   }
 
   renderCharacter = () => {
     return (
-      <div className="popup" ref={this.refWrapPopup}>
-        <span className="edit" onClick={this.edit}>
+      <styles.Popup ref={this.refWrapPopup}>
+        <span className="edit" onClick={this.handleEdit}>
           &Xi;
         </span>
         <span className="cross" onClick={this.props.changeShow}>
@@ -51,33 +42,36 @@ class Popup extends React.Component{
         <div className="img">
           <img src={`./img/${this.state.id}.jpg`} alt={this.state.id}></img>
         </div>
-      </div>
+      </styles.Popup>
     );
   }
 
   renderEdit = () => {
-    let name = this.state.name;
     return (
-      <div className="popup" ref={this.refWrapPopup}>
+      <styles.Popup ref={this.refWrapPopup}>
         <span className="edit" onClick={this.edit}>
           &Xi;
         </span>
         <div className="actions">
-          <button className="primary_button">Сохранить</button>
+          <button className="primary_button" onClick={this.saveChange}>Сохранить</button>
         </div>
         <span className="cross" onClick={this.props.changeShow}>
           &times;
         </span>
-        <input className="name" type="text"
-          value={this.state.name} onChange={this.handleChange}
+        <input
+          className="name"
+          type="text"
+          value={this.state.name}
+          onChange={this.handleChangeName}
         />
-        <textarea className="description_input" name='value'
+        <textarea 
           value={ this.state.description }
+          onChange={this.handleChangeDescription}
         />
         <div className="img">
           <img src={`./img/${this.state.id}.jpg`} alt={this.state.id}></img>
         </div>
-      </div>
+      </styles.Popup>
     );
   }
 
@@ -87,25 +81,43 @@ class Popup extends React.Component{
 
   handleClick = (event) => {
     if (!this.wrapPopup.contains(event.target)) {
-      this.props.changeShow();
+      this.closePopup();
     }
   }
 
-  handleChange = (event) => {
+  closePopup = () => {
+    const { name, description, character } = this.state;
+    if (name !== character.name ||
+      description !== character.description) {
+        const result = window.confirm("Want to save?");
+        if (result) {
+          this.saveChange();
+        }
+      }
+    this.props.changeShow();
+  }
+
+  saveChange = () => {
+    const { character, name, description} = this.state;
+    this.props.store.saveChange(character.id, name, description);
+    // character.name = name;
+    // character.description = description;
+  }
+
+  handleChangeName = (event) => {
     const name = event.target.value;
-    const character = this.state.character;
-    character.name = name;
     this.setState({
       name
     });
-    console.log("handleChange");
+  }
+  handleChangeDescription = (event) => {
+    const description = event.target.value;
+    this.setState({
+      description
+    });
   }
 
-  addCharacter = () => {
-    
-  }
-
-  edit = () => {
+  handleEdit = () => {
     this.setState({
       edit: !this.state.edit,
     })

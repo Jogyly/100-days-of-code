@@ -1,0 +1,10 @@
+.toolbar {
+    display: flex;
+    justify-content: center;
+    border: 2px red solid;
+    padding: 20px;
+}
+
+.save {
+    margin-left: 30px;
+}

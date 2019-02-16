@@ -1,8 +1,10 @@
 import React from 'react';
 import Level from "../Level/Level.js";
+import Toolbar from "../Toolbar/Toolbar.js";
+
 import readTextFile from "../utils/readTextFile.js";
 import makeTree from "../utils/makeTree.js";
-import { observer } from 'mobx-react';
+import { observer, Provider } from 'mobx-react';
 
 import Store from "../store/store.js";
 
@@ -21,19 +23,27 @@ class App extends React.Component{
       return null;
     }
 
-    let store2 = new Store(response.characters);
+    // console.dir(makeTree(response.characters));
 
-    const characters = makeTree(store2.characters);
+    let store2 = new Store(response.characters);
+    console.dir(response.characters);
+    console.dir(store2);
+    // const characters = makeTree(store2.characters);
     this.setState({
       load: true,
-      characters,
+      characters: store2,
     })
   }
 
   render() {
     if (!this.state.load) return ("");
     return (
-      <Level characters={this.state.characters} />
+      <Provider store={this.state.characters}>
+        <React.Fragment>
+          <Toolbar store={this.state.characters} />
+          <Level characters={[0]} store={this.state.characters} />
+        </React.Fragment>
+      </Provider>
   )};
 };
 

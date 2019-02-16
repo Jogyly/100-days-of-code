@@ -1,5 +1,3 @@
-
-
 function readTextFile(file, callback) {
   let rawFile = new XMLHttpRequest();
   rawFile.overrideMimeType("application/json");
