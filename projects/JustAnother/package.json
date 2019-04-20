@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "custom-react-scripts": "0.2.2",
+    "nanoid": "^2.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "styled-components": "^4.1.3"

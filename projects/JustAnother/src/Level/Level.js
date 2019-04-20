@@ -3,6 +3,7 @@ import "./Level.css";
 import Node from "../Node/Node.js";
 import Branch from "../Branch/Branch.js";
 import { observer, inject, Provider } from 'mobx-react';
+import nanoid from "nanoid"
 
 @observer
 class Level extends React.Component{
@@ -13,6 +14,15 @@ class Level extends React.Component{
     console.dir(this.props.characters);
     const length = this.props.characters.length;
     for(let i = 0; i < length; i++){
+
+      if (!this.keys) {
+        this.keys = [];
+      }
+
+      if (!this.keys[i]) {
+        this.keys[i] = nanoid();
+      }
+ 
       console.dir(this.props.characters);
       const id = this.props.characters[i];
     //this.props.characters.forEach(id => {
@@ -21,7 +31,7 @@ class Level extends React.Component{
       console.dir(character);
       if (character) {
       level.push(
-        <div className="all-node">
+        <div key={this.keys[i]} className="all-node">
           <Branch character={character} i={i} length={length}>
             <div className="nodelvl">
               <Provider store={this.props.store}>
@@ -37,7 +47,10 @@ class Level extends React.Component{
           </Branch>
           <div>
             {!!character.children && character.children.length !== 0 &&
-              <Level characters={character.children} store={this.props.store} />
+              <Level
+                characters={character.children}
+                store={this.props.store}
+              />
             }
           </div>
         </div>

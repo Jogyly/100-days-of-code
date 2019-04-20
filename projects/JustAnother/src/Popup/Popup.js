@@ -100,6 +100,8 @@ class Popup extends React.Component{
   saveChange = () => {
     const { character, name, description} = this.state;
     this.props.store.saveChange(character.id, name, description);
+    debugger;
+    console.dir(this.props.store.characters);
     // character.name = name;
     // character.description = description;
   }
@@ -110,6 +112,7 @@ class Popup extends React.Component{
       name
     });
   }
+
   handleChangeDescription = (event) => {
     const description = event.target.value;
     this.setState({

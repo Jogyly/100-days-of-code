@@ -45,7 +45,9 @@ class Store {
   saveChange = (id, name, description) => {
     console.log("asd");
     const character = this.characters.get(id);
-    this.characters.set(id, {...character, name, description})
+    this.characters.set(id, {...character, name, description});
+    debugger;
+    console.dir(this.characters);
   }
 }
 
