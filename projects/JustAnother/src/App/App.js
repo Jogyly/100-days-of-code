@@ -1,51 +1,42 @@
-import React from 'react';
-import Level from "../Level/Level.js";
-import Toolbar from "../Toolbar/Toolbar.js";
-
-import readTextFile from "../utils/readTextFile.js";
-import makeTree from "../utils/makeTree.js";
-import { observer, Provider } from 'mobx-react';
-
-import Store from "../store/store.js";
-
-class App extends React.Component{
-  state = {
-    load: false,
-    characters: null,
-  }
-
-  componentWillMount = () => {
-    readTextFile("./characterInfo.json", this.loadRes);
-  }
-
-  loadRes = (response) => {
-    if (!response || !response.characters) {
-      return null;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const React = require("react");
+const Level_js_1 = require("../Level/Level.js");
+const Toolbar_js_1 = require("../Toolbar/Toolbar.js");
+const readTextFile_js_1 = require("../utils/readTextFile.js");
+const mobx_react_1 = require("mobx-react");
+const store_js_1 = require("../store/store.js");
+class App extends React.Component {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            load: false,
+            store: null,
+        };
+        this.componentWillMount = () => {
+            readTextFile_js_1.default("./characterInfo.json", this.loadRes);
+        };
+        this.loadRes = (response) => {
+            if (!response || !response.characters) {
+                return null;
+            }
+            const store = new store_js_1.default(response.characters);
+            this.setState({
+                load: true,
+                store,
+            });
+        };
     }
-
-    // console.dir(makeTree(response.characters));
-
-    let store2 = new Store(response.characters);
-    console.dir(response.characters);
-    console.dir(store2);
-    // const characters = makeTree(store2.characters);
-    this.setState({
-      load: true,
-      characters: store2,
-    })
-  }
-
-  render() {
-    if (!this.state.load) return ("");
-    return (
-      <Provider store={this.state.characters}>
-        <React.Fragment>
-          <Toolbar store={this.state.characters} />
-          <Level characters={[0]} store={this.state.characters} />
-        </React.Fragment>
-      </Provider>
-  )};
-};
-
-
-export default observer(App);
+    render() {
+        const { store, load } = this.state;
+        if (!load)
+            return ("");
+        return (React.createElement(mobx_react_1.Provider, { store: store },
+            React.createElement(React.Fragment, null,
+                React.createElement(Toolbar_js_1.default, null),
+                React.createElement(Level_js_1.default, { characters: [0], store: store }))));
+    }
+    ;
+}
+;
+exports.default = mobx_react_1.observer(App);
