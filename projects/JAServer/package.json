@@ -1,0 +1,11 @@
+{
+  "name": "JAServer",
+  "version": "1.0.0",
+  "description": "server for JustAnother",
+  "main": "index.js",
+  "author": "Jogyly",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.16.0"
+  }
+}
