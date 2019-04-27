@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 import "./Node.css"; 
 import Popup from "../Popup/Popup.js"
 import { observer } from "mobx-react" 
