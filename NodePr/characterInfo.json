@@ -1,0 +1,58 @@
+{
+  "characters": [
+    {
+      "id": 0,
+      "name": "Creatures",
+      "description": "Creatures",
+      "children": [1,2,4]
+    },
+    {
+      "id": 1,
+      "name": "Ancients",
+      "description": "Ancients",
+      "children": []
+    },
+    {
+      "id": 2,
+      "name": "Dragons",
+      "description": "Dragons",
+      "children": [3,33,34]
+    },
+    {
+      "id": 3,
+      "name": "Dark dragon",
+      "description": "Dark dragon",
+      "children": []
+    },
+    {
+      "id": 33,
+      "name": "Dark dragon",
+      "description": "Dark dragon",
+      "children": []
+    },
+    {
+      "id": 34,
+      "name": "Dark dragon",
+      "description": "Dark dragon",
+      "children": []
+    },
+    {
+      "id": 4,
+      "name": "Angels",
+      "description": "Creatures with wings",
+      "children": [5,6]
+    },
+    {
+      "id": 5,
+      "name": "Shadow",
+      "description": "Dark angel with metal mask and combat gloves. Came back from purgatory",
+      "children": []
+    },
+    {
+      "id": 6,
+      "name": "Wolf",
+      "description": "Wolf",
+      "children": []
+    }
+    ]
+}

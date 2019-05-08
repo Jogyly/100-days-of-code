@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example</title>
+  <script>
+    var characters;
+
+    window.onload = function() {
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://localhost:3000/getCharacters", false);
+      xhr.send();
+
+      if (xhr.status != 200) {
+        alert( xhr.status );
+      } else {
+        characters = xhr.responseText;
+        alert( xhr.responseText );
+      }
+    }
+
+    function sendCharacters() {
+      characters = JSON.parse(characters);
+      characters.characters[0].id = 999;
+      characters = JSON.stringify(characters);
+      console.log(characters);
+
+      var xh = new XMLHttpRequest();
+      xh.open("POST", "http://localhost:3000/saveCharacters", true);
+      xh.send(characters);
+    }
+  </script>
+</head>
+<body>
+  <h1>
+    Example
+  </h1>
+  <div>
+    Люблю свою любимую Юленьку
+    <button onclick="sendCharacters()">
+      Клацни меня
+    </button>
+  </div>
+</body>
+</html>
