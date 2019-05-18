@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 import "./Node.css"; 
-import Popup from "../Popup/Popup.js"
-import { observer } from "mobx-react" 
+import Popup from "../Popup/Popup";
+import { observer } from "mobx-react";
 import styles from "./styles.js";
 import { ICharacter } from "../interfaces";
-import Store from '../store/store';
+import Store from "../store/store";
 
 interface INodeState {
   showPopup: boolean;
@@ -26,11 +26,10 @@ class Node extends React.Component<INodeProps, INodeState>{
     childActive: false,
   }
 
-  node: HTMLInputElement;
+  node: HTMLInputElement | null = null;
 
   addCharacter = () => {
     const id = this.props.store.getNewId();
-    console.log(`new id = ${id}`);
     const newCharacter = {
       id,
       name: "new",
@@ -55,8 +54,8 @@ class Node extends React.Component<INodeProps, INodeState>{
     this.node = node;
   }
 
-  handleClick = (event) => {
-    if (!this.node.contains(event.target)) {
+  handleClick = (event: any) => {
+    if (this.node && !this.node.contains(event.target)) {
       this.makeDisActive();
     }
   }

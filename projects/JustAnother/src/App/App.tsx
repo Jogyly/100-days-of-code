@@ -1,12 +1,11 @@
 import * as React from "react";
-import Level from "../Level/Level.js";
-import Toolbar from "../Toolbar/Toolbar.js";
+import Level from "../Level/Level";
+import Toolbar from "../Toolbar/Toolbar";
 
 import readTextFile from "../utils/readTextFile.js";
-import makeTree from "../utils/makeTree.js";
-import { observer, Provider } from 'mobx-react';
+import { observer, Provider } from "mobx-react";
 
-import Store from "../store/store.js";
+import Store from "../store/store";
 import { Characters } from "../interfaces";
 
 interface IAppState {
@@ -21,7 +20,7 @@ interface IResponse {
 class App extends React.Component<{}, IAppState>{
   state = {
     load: false,
-    store: null,
+    store: new Store(),
   }
 
   componentWillMount = () => {
@@ -33,17 +32,18 @@ class App extends React.Component<{}, IAppState>{
       return null;
     }
 
-    const store = new Store(response.characters);
+    this.state.store.init(response.characters);
 
     this.setState({
       load: true,
-      store,
     });
   }
 
   render() {
+    console.log("object");
     const { store, load } = this.state;
-    if (!load) return ("");
+    if (!load) return "";
+    if (!store.characters) return "";
     return (
       <Provider store={store}>
         <React.Fragment>
@@ -51,8 +51,7 @@ class App extends React.Component<{}, IAppState>{
           <Level characters={[0]} store={store} />
         </React.Fragment>
       </Provider>
-  )};
-};
-
+  )}
+}
 
 export default observer(App);

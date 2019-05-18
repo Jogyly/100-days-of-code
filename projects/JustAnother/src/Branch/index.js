@@ -1,1 +1,1 @@
-export default "./Branch.js";
+export default "./Branch.tsx";

@@ -1,10 +1,10 @@
 import * as React from "react";
-import * as nanoid from "nanoid/non-secure";
+import nanoid from "nanoid/non-secure";
 
 import "./Level.css"; 
-import Node from "../Node/Node.js";
-import Branch from "../Branch/Branch.js";
-import { observer, inject, Provider } from 'mobx-react';
+import Node from "../Node/Node";
+import Branch from "../Branch/Branch";
+import { observer, Provider } from "mobx-react";
 
 import Store from "../store/store";
 
@@ -16,7 +16,7 @@ interface ILevelProps {
 @observer
 class Level extends React.Component<ILevelProps> {
 
-  keys: string[];
+  keys: string[] = [];
 
   renderLevel = () => {
     let level = [];
@@ -60,7 +60,7 @@ class Level extends React.Component<ILevelProps> {
           </div>
         </div>
       )}
-    };
+    }
 
     return level;
   }

@@ -1,11 +1,27 @@
-import { observable, action, observe } from 'mobx';
+import { observable, action } from "mobx";
 
 import { ICharacter, Characters } from "../interfaces";
 
 class Store {
   @observable characters: Characters = new Map();
 
-  constructor(characters: Characters) {
+  constructor() {
+
+  }
+  // constructor(characters: Characters) {
+  //   characters.forEach(element => {
+  //     this.characters.set(element.id, {
+  //       id: element.id,
+  //       name: element.name,
+  //       description: element.description,
+  //       img: element.img,
+  //       children: element.children
+  //     });
+  //   });
+  // }
+
+  @action
+  init = (characters: Characters) => {
     characters.forEach(element => {
       this.characters.set(element.id, {
         id: element.id,
@@ -19,13 +35,13 @@ class Store {
 
   @action
   addCharacter = (parentId: number, newCharacter: ICharacter) => {
-    console.log(`add for parent ${parentId} new char`);
     newCharacter.new = true;
     this.characters.set(newCharacter.id, newCharacter);
     const parent = this.characters.get(parentId);
-    parent.children 
-    ? parent.children.push(newCharacter.id)
-    : [newCharacter.id]
+
+    if (parent && parent.children) {
+      parent.children.push(newCharacter.id);
+    }
   }
 
   getNewId = () => {
@@ -44,11 +60,11 @@ class Store {
 
   @action
   saveChange = (id: number, name: string, description: string) => {
-    console.log("asd");
     const character = this.characters.get(id);
-    this.characters.set(id, {...character, name, description});
-    debugger;
-    console.dir(this.characters);
+    if (character) {
+      const children = character.children;
+      this.characters.set(id, {id, children, name, description});
+    }
   }
 }
 

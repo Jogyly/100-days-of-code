@@ -1,1 +1,1 @@
-export default "./Popup.js";
+export default "./Popup.tsx";

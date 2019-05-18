@@ -46,7 +46,7 @@ class Toolbar extends React.Component<{}, IToolbarState> {
           </styles.ToolBarSideMini>
         }
       </styles.ToolbarBack>
-  )};
-};
+  )}
+}
 
 export default Toolbar;

@@ -1,5 +1,4 @@
 import * as React from "react";
-import Node from "../Node/Node.js"
 import "./Level.css";
 import styles from "./styles.js";
 import { ICharacter } from "../interfaces";

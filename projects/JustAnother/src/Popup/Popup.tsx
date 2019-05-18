@@ -1,10 +1,10 @@
 // import React, { Component } from "react";
-import * as React from 'react';
+import * as React from "react";
 import { inject, observer } from "mobx-react";
 
 import styles from "./styles.js";
 import { ICharacter } from "../interfaces";
-import Store from '../store/store';
+import Store from "../store";
 
 interface IPopupState {
   character: ICharacter;
@@ -18,7 +18,10 @@ interface IPopupProps {
   character: ICharacter;
   edit: boolean;
   changeShow: () => void;
-  store?: Store;
+}
+
+interface InjectedProps extends IPopupProps {
+  store: Store;
 }
 
 @inject("store")
@@ -31,8 +34,12 @@ class Popup extends React.Component<IPopupProps, IPopupState>{
     description: this.props.character.description,
     edit: this.props.edit || false,
   }
+  
+  get injected() {
+    return this.props as InjectedProps;
+  }
 
-  wrapPopup: HTMLInputElement;
+  wrapPopup?: HTMLInputElement;
 
   componentDidMount = () => {
     document.addEventListener("click", this.handleClick);
@@ -99,8 +106,8 @@ class Popup extends React.Component<IPopupProps, IPopupState>{
     this.wrapPopup = node;
   }
 
-  handleClick = (event) => {
-    if (!this.wrapPopup.contains(event.currentTarget)) {
+  handleClick = (event: any) => {
+    if (this.wrapPopup && !this.wrapPopup.contains(event.currentTarget)) {
       this.closePopup();
     }
   }
@@ -119,21 +126,20 @@ class Popup extends React.Component<IPopupProps, IPopupState>{
 
   saveChange = () => {
     const { character, name, description} = this.state;
-    this.props.store.saveChange(character.id, name, description);
-    debugger;
-    console.dir(this.props.store.characters);
+    const { store } = this.injected;
+    store.saveChange(character.id, name, description);
     // character.name = name;
     // character.description = description;
   }
 
-  handleChangeName = (event) => {
+  handleChangeName = (event: any) => {
     const name = event.target.value;
     this.setState({
       name
     });
   }
 
-  handleChangeDescription = (event) => {
+  handleChangeDescription = (event: any) => {
     const description = event.target.value;
     this.setState({
       description

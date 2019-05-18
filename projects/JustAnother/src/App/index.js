@@ -1,1 +1,1 @@
-export default "./App.js";
+export default "./App.tsx";

@@ -1,1 +1,1 @@
-export default "./Node.js";
+export default "./Node.tsx";

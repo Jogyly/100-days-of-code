@@ -1,4 +1,4 @@
-interface ICharacter {
+export interface ICharacter {
   id: number;
   name: string;
   description: string;
@@ -7,6 +7,4 @@ interface ICharacter {
   new?: boolean;
 }
 
-type Characters = Map<number, ICharacter>;
-
-export { ICharacter, Characters };
+export type Characters = Map<number, ICharacter>;

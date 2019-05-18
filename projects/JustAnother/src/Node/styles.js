@@ -19,10 +19,6 @@ const Node = styled.div`
   }
 `;
 
-const commonNode = styled.div`
-
-`;
-
 const Button = styled.button`
   background-color: #5ca0be;
   border: 1px solid black;

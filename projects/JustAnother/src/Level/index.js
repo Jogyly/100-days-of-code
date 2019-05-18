@@ -1,1 +1,1 @@
-export default "./Level.js";
+export default "./Level.tsx";
