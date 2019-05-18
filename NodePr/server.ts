@@ -4,11 +4,12 @@ import * as fs from "fs";
 interface IMyResponse {
   statusCode?: number;
   end: (arg: string) => void;
+  setHeader?: (arg1: string, arg2: string) => void;
 }
 
 interface IMyRequest {
   on: (name: string, callback: Function) => void;
-  read: () => void;
+  read: () => string | null;
 }
 
 interface ICharacters {
@@ -19,10 +20,9 @@ const getCharacters = (res: IMyResponse) => {
   let contentData: ICharacters = null;
   fs.readFile("./characterInfo.json", { encoding: "utf-8" }, (err: NodeJS.ErrnoException, content: string) => {
     if (err) {
-      console.error(err);
       res.statusCode = 500;
       res.end("Server error");
-      return;
+      throw err;
     }
 
     try {
@@ -36,6 +36,7 @@ const getCharacters = (res: IMyResponse) => {
       return;
     }
     
+    res.setHeader("Content-type", "application/json");
     res.end(content);
   });
 
@@ -45,28 +46,33 @@ const getCharacters = (res: IMyResponse) => {
 const tryReadFile = (res: IMyResponse) => {
   fs.readFile("./index.html", { encoding: "utf-8" }, (err, content) => {
     if (err) {
-      console.error(err);
       res.statusCode = 500;
       res.end("Server error");
-      return;
+      throw err;
     }
 
+    res.setHeader("Content-type", "text/html");
     res.end(content);
   });
 }
 
 const saveCharacters = (req: IMyRequest, res: IMyResponse) => {
-  let body = null;
+  let body = "";
 
   req.on("readable", () => {
-    body += req.read();
+    const value = req.read();
+    if (value) {
+      body += value;
+    }
   });
 
   req.on("end", () => {
-    body = JSON.parse(body);
+    // body = JSON.parse(body);
 
-    console.log(body.message);
-    res.end(body.message);
+    // console.log(body.message);
+    res.statusCode = 200;
+    res.setHeader("Content-type", "application/json");
+    res.end(body);
   });
 }
 
@@ -87,7 +93,7 @@ function handler(req, res: IMyResponse) {
       res.statusCode = 404;
       res.end("Not Found");
       break;
-  } 
+  }
 }
 
 // const newHttp = new http(); 

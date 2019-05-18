@@ -6,21 +6,21 @@ var getCharacters = function (res) {
     var contentData = null;
     fs.readFile("./characterInfo.json", { encoding: "utf-8" }, function (err, content) {
         if (err) {
-            console.error(err);
             res.statusCode = 500;
             res.end("Server error");
-            return;
+            throw err;
         }
         try {
             contentData = JSON.parse(content);
+            console.log(contentData.characters[0]);
         }
         catch (ex) {
             res.statusCode = 204;
             res.end("Error in parse");
-            // console.log(`Error in parse: ${ex.}`);
+            console.log("Error in parse: " + ex.message);
             return;
         }
-        console.log(contentData.characters[0]);
+        res.setHeader("Content-type", "application/json");
         res.end(content);
     });
     return contentData;
@@ -28,23 +28,28 @@ var getCharacters = function (res) {
 var tryReadFile = function (res) {
     fs.readFile("./index.html", { encoding: "utf-8" }, function (err, content) {
         if (err) {
-            console.error(err);
             res.statusCode = 500;
             res.end("Server error");
-            return;
+            throw err;
         }
+        res.setHeader("Content-type", "text/html");
         res.end(content);
     });
 };
 var saveCharacters = function (req, res) {
-    var body = null;
+    var body = "";
     req.on("readable", function () {
-        body += req.read();
+        var value = req.read();
+        if (value) {
+            body += value;
+        }
     });
     req.on("end", function () {
-        body = JSON.parse(body);
-        console.log(body.message);
-        res.end(body.message);
+        // body = JSON.parse(body);
+        // console.log(body.message);
+        res.statusCode = 200;
+        res.setHeader("Content-type", "application/json");
+        res.end(body);
     });
 };
 function handler(req, res) {

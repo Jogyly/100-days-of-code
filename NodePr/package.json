@@ -11,5 +11,8 @@
   },
   "dependencies": {
     "@types/node": "^11.13.9"
+  },
+  "scripts": {
+    "start": "node domain.js"
   }
 }

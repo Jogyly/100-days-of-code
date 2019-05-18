@@ -29,6 +29,14 @@
       var xh = new XMLHttpRequest();
       xh.open("POST", "http://localhost:3000/saveCharacters", true);
       xh.send(characters);
+
+      if (xh.status != 200 ) {
+        alert( xh.status );
+      } else {
+        characters = xh.responseText;
+        console.log(characters);
+        alert( JSON.parse(xh.responseText));
+      }
     }
   </script>
 </head>
