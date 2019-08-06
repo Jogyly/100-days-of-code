@@ -5,6 +5,7 @@ export interface ICharacter {
   img?: string; 
   children: number[];
   new?: boolean;
+  parent: number;
 }
 
 export type Characters = Map<number, ICharacter>;

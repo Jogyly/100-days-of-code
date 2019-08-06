@@ -1,44 +1,44 @@
 import * as React from "react";
-import "./Level.css";
-import styles from "./styles.js";
+import styles from "./styles";
+
 import { ICharacter } from "../interfaces";
 
 interface IBranchProps {
   character: ICharacter;
   i: number;
   length: number;
+  children: React.ReactNode;
 }
 
-class Branch extends React.Component<IBranchProps> {
-  render() {
-    const { character, i, length } = this.props;
-    return (
-      <React.Fragment>
-        <div className="right-line">
-          <styles.GorizontalLine hidden={ i === 0 }>
-            <line x1="0" y1="0" x2="800" y2="0" style={{stroke: "black"}} />
-          </styles.GorizontalLine>
-          <styles.GorizontalLine hidden={ i === length - 1 }>
-            <line x1="0" y1="0" x2="800" y2="0" style={{stroke: "black"}} />
-          </styles.GorizontalLine>
-        </div>
-        <styles.VerticalLine>
-          <line x1="0" y1="0" x2="0" y2="800" style={{stroke: "black"}} />
-        </styles.VerticalLine>
+const { RightLine, GorizontalLineSvg, VerticalLineSvg } = styles;
 
-        {this.props.children}
+const Branch = ({ character, i, length, children }: IBranchProps) => (
+  <React.Fragment>
+    <RightLine>
+      <GorizontalLineSvg hidden={ i === 0 }>
+        <line x1="0" y1="0" x2="800" y2="0" style={{ stroke: "black" }} />
+      </GorizontalLineSvg>
 
-        <styles.VerticalLine 
-          hidden={
-            !character.children ||
-            character.children.length === 0
-          }
-        >
-          <line x1="0" y1="0" x2="0" y2="800" style={{stroke: "black"}} />
-        </styles.VerticalLine> 
-      </React.Fragment>
-    );
-  }
-}
+      <GorizontalLineSvg hidden={ i === length - 1 }>
+        <line x1="0" y1="0" x2="800" y2="0" style={{ stroke: "black" }} />
+      </GorizontalLineSvg>
+    </RightLine>
+
+    <VerticalLineSvg>
+      <line x1="0" y1="0" x2="0" y2="800" style={{stroke: "black"}} />
+    </VerticalLineSvg>
+
+    {children}
+
+    <VerticalLineSvg 
+      hidden={
+        !character.children ||
+        character.children.length === 0
+      }
+    >
+      <line x1="0" y1="0" x2="0" y2="800" style={{ stroke: "black" }} />
+    </VerticalLineSvg> 
+  </React.Fragment>
+);
 
 export default Branch;

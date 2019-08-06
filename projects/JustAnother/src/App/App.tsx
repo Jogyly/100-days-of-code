@@ -1,11 +1,13 @@
 import * as React from "react";
+import { observer, Provider } from "mobx-react";
+import utils from "ati-utils";
+
 import Level from "../Level/Level";
 import Toolbar from "../Toolbar/Toolbar";
-
-import readTextFile from "../utils/readTextFile.js";
-import { observer, Provider } from "mobx-react";
-
 import Store from "../store/store";
+
+import client from "../utils/client";
+
 import { Characters } from "../interfaces";
 
 interface IAppState {
@@ -17,6 +19,7 @@ interface IResponse {
   characters: Characters;
 }
 
+@observer
 class App extends React.Component<{}, IAppState>{
   state = {
     load: false,
@@ -24,7 +27,8 @@ class App extends React.Component<{}, IAppState>{
   }
 
   componentWillMount = () => {
-    readTextFile("./characterInfo.json", this.loadRes);
+    client.getCharacters(this.loadRes);
+    utils.bitsumToArray();
   }
 
   loadRes = (response: IResponse) => {

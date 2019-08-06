@@ -1,19 +1,21 @@
 import * as React from "react";
-import "./Node.css"; 
-import Popup from "../Popup/Popup";
 import { observer } from "mobx-react";
-import styles from "./styles.js";
+
+import Popup from "../Popup/Popup";
+
+import styles from "./styles";
+
 import { ICharacter } from "../interfaces";
 import Store from "../store/store";
 
 interface INodeState {
   showPopup: boolean;
-  character: ICharacter;
   active?: boolean;
   childActive?: boolean;
 }
 
 interface INodeProps extends INodeState {
+  character: ICharacter;
   store: Store;
 }
 
@@ -21,12 +23,11 @@ interface INodeProps extends INodeState {
 class Node extends React.Component<INodeProps, INodeState>{
   state = {
     showPopup: this.props.showPopup || false,
-    character: this.props.character,
     active: this.props.active || false,
     childActive: false,
   }
 
-  node: HTMLInputElement | null = null;
+  node?: HTMLInputElement;
 
   addCharacter = () => {
     const id = this.props.store.getNewId();
@@ -35,9 +36,15 @@ class Node extends React.Component<INodeProps, INodeState>{
       name: "new",
       description: "sdf",
       children: [],
+      parent: this.props.character.id,
     }
     
     this.props.store.addCharacter(this.props.character.id, newCharacter);
+  }
+
+  deleteCharacter = () => {
+    const { id, parent, children} = this.props.character;
+    this.props.store.deleteCharacter(id, parent, children);
   }
 
   showParents = () => {
@@ -84,7 +91,9 @@ class Node extends React.Component<INodeProps, INodeState>{
   }
 
   render() {
-    const { active, character } = this.state;
+    const { active } = this.state;
+    const { character } = this.props;
+
     return (
       <div>
         <styles.Node 
@@ -94,9 +103,23 @@ class Node extends React.Component<INodeProps, INodeState>{
         >
           { character.name }
         </styles.Node>
-        <styles.Button active={active} onClick={this.addCharacter}>
+
+        <styles.Button
+          className="add"
+          active={active}
+          onClick={this.addCharacter}
+        >
           +
         </styles.Button>
+
+        <styles.Button
+          className="delete"
+          active={active}
+          onClick={this.deleteCharacter}
+        >
+          -
+        </styles.Button>
+
         {
           this.state.showPopup && 
             <Popup

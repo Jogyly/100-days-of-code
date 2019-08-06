@@ -8,6 +8,8 @@
     "@types/node": "12.0.2",
     "@types/react": "^16.8.17",
     "@types/react-dom": "16.8.4",
+    "@types/styled-components": "^4.1.15",
+    "ati-utils": "file:./ati-utils-1.0.15.tgz",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
     "nanoid": "^2.0.2",
@@ -37,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-plugin-typescript": "^0.14.0",
+    "typescript-eslint-parser": "^22.0.0"
   }
 }

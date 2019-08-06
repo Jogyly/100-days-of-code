@@ -1,13 +1,24 @@
 import * as React from "react";
 import styles from "./styles.js";
+import { inject } from "mobx-react";
+import Store from "../store/store";
 
 interface IToolbarState {
   isShowToolbar: boolean;
 }
 
+interface IToolbarProps {
+  store: Store;
+}
+
+@inject("store")
 class Toolbar extends React.Component<{}, IToolbarState> {
   state = {
     isShowToolbar: true,
+  }
+
+  get injected() {
+    return this.props as IToolbarProps;
   }
 
   hideToolbar = () => {
@@ -20,6 +31,11 @@ class Toolbar extends React.Component<{}, IToolbarState> {
     this.setState({
       isShowToolbar: true,
     });
+  }
+
+  saveCharacters = () => {
+    const { store } = this.injected;
+    store.saveAll();
   }
 
   render() {
@@ -35,7 +51,7 @@ class Toolbar extends React.Component<{}, IToolbarState> {
               <input />
               <div>S</div>
             </styles.ToolbarMain>
-            <styles.ToolBarSide>
+            <styles.ToolBarSide onClick={this.saveCharacters}>
               S
             </styles.ToolBarSide>
           </styles.Toolbar>

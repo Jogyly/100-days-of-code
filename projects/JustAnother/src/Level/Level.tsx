@@ -1,12 +1,13 @@
 import * as React from "react";
 import nanoid from "nanoid/non-secure";
-
-import "./Level.css"; 
-import Node from "../Node/Node";
-import Branch from "../Branch/Branch";
 import { observer, Provider } from "mobx-react";
 
+import Node from "../Node/Node";
+import Branch from "../Branch/Branch";
+
 import Store from "../store/store";
+
+import styles from "./styles"; 
 
 interface ILevelProps {
   characters: number[];
@@ -15,14 +16,13 @@ interface ILevelProps {
 
 @observer
 class Level extends React.Component<ILevelProps> {
-
   keys: string[] = [];
 
   renderLevel = () => {
     let level = [];
     const length = this.props.characters.length;
-    for(let i = 0; i < length; i++){
 
+    for (let i = 0; i < length; i++) {
       if (!this.keys) {
         this.keys = [];
       }
@@ -34,7 +34,10 @@ class Level extends React.Component<ILevelProps> {
       const id = this.props.characters[i];
       const character = this.props.store.characters.get(id);
 
-      if (character) {
+      if (!character) {
+        continue;
+      }
+
       level.push(
         <div key={this.keys[i]} className="all-node">
           <Branch character={character} i={i} length={length}>
@@ -50,6 +53,7 @@ class Level extends React.Component<ILevelProps> {
               </Provider>
             </div>
           </Branch>
+
           <div>
             {!!character.children && character.children.length !== 0 &&
               <Level
@@ -59,7 +63,7 @@ class Level extends React.Component<ILevelProps> {
             }
           </div>
         </div>
-      )}
+      )
     }
 
     return level;
@@ -67,12 +71,13 @@ class Level extends React.Component<ILevelProps> {
 
   render() {
     if (!this.props.characters || this.props.characters.length <= 0) {
-      return ""
+      return;
     }
+
     return (
-      <div className="level">
+      <styles.Level>
         { this.renderLevel() }
-      </div>
+      </styles.Level>
     )
   }
 }

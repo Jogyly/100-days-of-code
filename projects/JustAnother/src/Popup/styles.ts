@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Popup = styled.div`
   background-color: white;
@@ -10,6 +10,8 @@ const Popup = styled.div`
   top: 10%;
   border: 2px solid #5ca0be;
   font-family: Geneva, Arial, Helvetica, sans-serif;
+  overflow: auto;
+  height: 600px;
 
   @media screen and (max-width: 640px) {
     width: calc(100% - 40px);
@@ -51,7 +53,7 @@ const Popup = styled.div`
     color: black;
   }
 
-  input {
+  .name {
     font-size: 26px;
     text-align: center;
     width: 90%;
@@ -65,6 +67,11 @@ const Popup = styled.div`
     width: 523px;
     margin-left: 20px;
     font-size: 18px;
+  }
+
+  .input-image {
+    cursor: pointer;
+    margin-bottom: 20px;
   }
 
   img {

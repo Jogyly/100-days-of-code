@@ -10,7 +10,9 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "@types/node": "^11.13.9"
+    "@types/node": "^11.13.9",
+    "form-data": "^2.3.3",
+    "multiparty": "^4.2.1"
   },
   "scripts": {
     "start": "node domain.js"

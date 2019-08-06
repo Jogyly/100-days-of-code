@@ -24,6 +24,7 @@
         "react/jsx-uses-vars": [2],
         "no-unused-vars": "off",
         "quotes": ["error", "double", { "avoidEscape": true }],
-        "no-console": "off"
+        "no-console": "off",
+        "no-debugger": "off"
     }
 }
